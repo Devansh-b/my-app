@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import Cookies from 'js-cookie';  // Import js-cookie to work with cookies
 
 function StudentDetailsForm() {
     const [formData, setFormData] = useState({
@@ -12,6 +15,10 @@ function StudentDetailsForm() {
         linkedin: '',
         skills: ''
     });
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate(); // Hook for redirection
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,20 +28,67 @@ function StudentDetailsForm() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Submit form data logic here
-        console.log("Form Data Submitted:", formData);
+        setLoading(true);
+
+        // Retrieve the token from cookies using the correct cookie name
+        const token = Cookies.get('jwt-thaparnexus'); // Get the token from the cookie
+
+        // Check if the token is available
+        if (!token) {
+            setError('No token provided. Please log in first.');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await axios.put(
+                'http://localhost:5000/api/v1/auth/student/complete-profile', 
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,  // Add the token to the request header
+                    },
+                }
+            );
+            console.log('Student Details Saved:', response.data);
+            setSuccess('Profile completed successfully!');
+            setError('');
+            setFormData({
+                fullName: '',
+                rollNo: '',
+                branch: '',
+                year: '',
+                cgpa: '',
+                email: '',
+                phone: '',
+                linkedin: '',
+                skills: ''
+            });
+
+            // Redirect to another page (e.g., Userpage)
+            navigate('/userpage');
+        } catch (error) {
+            console.error('Error saving student details:', error);
+            setError(error.response?.data?.message || 'Failed to save details. Please try again.');
+            setSuccess('');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-    
         <div className="w-full mx-auto p-6 bg-white shadow-md rounded-lg pt-8 ml-10 mr-32 mb-8 justify-center items-center">
             <h2 className="text-2xl font-semibold mb-4">Student Details</h2>
+
+            {error && <p className="text-red-500 text-center">{error}</p>}
+            {success && <p className="text-green-500 text-center">{success}</p>}
+
             <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4 ">
+                <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium mb-1 ">Full Name</label>
+                        <label className="block text-sm font-medium mb-1">Full Name</label>
                         <input
                             type="text"
                             name="fullName"
@@ -116,36 +170,38 @@ function StudentDetailsForm() {
                     </div>
                 </div>
 
-                <div>
-                    <label className="block text-sm font-medium mb-1">LinkedIn</label>
-                    <input
-                        type="url"
-                        name="linkedin"
-                        value={formData.linkedin}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded bg-[#f3f4f6]"
-                    />
-                </div>
-
-                <div>
-                    <label className="block text-sm font-medium mb-1">Skills</label>
-                    <textarea
-                        name="skills"
-                        value={formData.skills}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded bg-[#f3f4f6]"
-                    />
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium mb-1">LinkedIn</label>
+                        <input
+                            type="text"
+                            name="linkedin"
+                            value={formData.linkedin}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded bg-[#f3f4f6]"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Skills</label>
+                        <input
+                            type="text"
+                            name="skills"
+                            value={formData.skills}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded bg-[#f3f4f6]"
+                        />
+                    </div>
                 </div>
 
                 <button
                     type="submit"
-                    className="mt-4 px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                    disabled={loading}
+                    className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
                 >
-                    Save
+                    {loading ? 'Saving Details...' : 'Save Details'}
                 </button>
             </form>
         </div>
-    
     );
 }
 
