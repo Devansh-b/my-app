@@ -10,6 +10,7 @@ import Contact from './components/Contact';
 import Userpage from './pages/Userpage';
 import Student_Details_Page from './pages/Student_Details_Page';
 import PostPage from './pages/PostPage';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
             <Route
               path="/"
               element={
-                <div className="w-full space-y-4  bg-cover bg-center  bg-cover min-h-screen " style={{ backgroundImage: `url(${logo2})` }}>
+                <div className="w-full space-y-4  bg-cover bg-center min-h-screen " style={{ backgroundImage: `url(${logo2})` }}>
                   <Homepage />
                   <Signup_form />
                 </div>
@@ -35,6 +36,7 @@ function App() {
             <Route path="/userpage" element={<Userpage />} />
             <Route path="/studentdetailsform" element={<Student_Details_Page />} />
             <Route path="/postpage" element={<PostPage />} />
+            <Route path='/adminpage' element={<AdminPage/>} />
           </Routes>
         </div>
       

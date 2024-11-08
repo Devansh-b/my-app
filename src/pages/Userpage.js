@@ -73,7 +73,7 @@ function Userpage() {
   const types = ["Internship", "Full-time"];
 
   return (
-    <div className="flex flex-col lg:flex-row pt-8 bg-[#f3f4f6] w-full min-h-screen">
+    <div className="flex flex-col lg:flex-row pt-8 bg-[#f3f4f6] w-full min-h-screen justify center">
       <LeftSec />
       <div className="lg:ml-14 w-full lg:w-2/3 px-4">
         <SearchBar />

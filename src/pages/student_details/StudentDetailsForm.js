@@ -29,7 +29,7 @@ function StudentDetailsForm() {
 
     return (
     
-        <div className="w-full mx-auto p-6 bg-white shadow-md rounded-lg pt-8 ml-10 mr-32 mb-8">
+        <div className="w-full mx-auto p-6 bg-white shadow-md rounded-lg pt-8 ml-10 mr-32 mb-8 justify-center items-center">
             <h2 className="text-2xl font-semibold mb-4">Student Details</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4 ">
