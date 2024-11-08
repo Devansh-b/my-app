@@ -7,7 +7,7 @@ const StudentSignUpPage = () => {
   return (
     <div className="w-full space-y-4  bg-cover bg-center min-h-screen " style={{ backgroundImage: `url(${logo2})` }}>
       <Homepage/> 
-      <Student_Signup_form/>
+      <Student_Signup_form text="Student Sign Up" />
     </div>
   )
 }

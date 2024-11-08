@@ -14,6 +14,8 @@ import AdminPage from './pages/AdminPage';
 import Student_Signup_form from './pages/studentsignup/Student_Signup_form';
 import AdminSignUpPage from './pages/AdminSignUpPage';
 import StartupPage from './pages/StartupPage';
+import StudentLoginPage from './pages/StudentLoginPage';
+import AdminLoginPage from './pages/AdminLoginPage';
 
 function App() {
   return (
@@ -42,7 +44,8 @@ function App() {
             <Route path="/postpage" element={<PostPage />} />
             <Route path='/adminpage' element={<AdminPage/>} />
             <Route path='/adminsignup' element={<AdminSignUpPage/>} />
-            <Route path='' />
+            <Route path='/studentlogin' element={<StudentLoginPage/>} />
+            <Route path='/adminlogin' element={<AdminLoginPage/> } />
           </Routes>
         </div>
       

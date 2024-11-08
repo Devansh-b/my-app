@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Student_Signup_form = () => {
+const Student_Signup_form = ({text}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -53,7 +53,7 @@ const Student_Signup_form = () => {
         onSubmit={handleSubmit}
         className="bg-white bg-opacity-50 p-6 rounded  shadow-md lg:w-96 md:w-64 lg:h-[410px] md:h-[350px]"
       >
-        <h2 className="text-2xl lg:mb-4 text-center">Student Sign Up</h2>
+        <h2 className="text-2xl lg:mb-4 text-center">{text}</h2>
 
         {error && <p className="text-red-500 text-center">{error}</p>}
         {success && <p className="text-green-500 text-center">{success}</p>}
