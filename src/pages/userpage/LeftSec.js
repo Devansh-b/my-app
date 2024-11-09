@@ -1,7 +1,7 @@
 import React from 'react';
 import { iconlist } from '../Userpage.js';
 
-const LeftSec = ({ name, id, year }) => {
+const LeftSec = ({ name, rollno, year }) => { // Receiving user data as props
   return (
     <div className='w-fit h-fit ml-5'>
       <div className='bg-white p-4 rounded-2xl border-2'>
@@ -16,9 +16,10 @@ const LeftSec = ({ name, id, year }) => {
         <hr className="border-t-2 border-gray-300 my-4" />
 
         <div className='text-center'>
+          {/* Display user details */}
           <h2 className='text-black font-bold text-2xl break-words'>{name}</h2>
-          <p>{id}</p>
-          <p>{year}</p>
+          <p>{rollno}</p>
+          <p>Year {year}</p>
         </div>
       </div>
 

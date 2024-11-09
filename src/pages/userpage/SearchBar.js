@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 function SearchBar({ onSearch }) {
     const [query, setQuery] = useState('');
 
+    // Update the search query state
     const handleInputChange = (e) => {
         setQuery(e.target.value);
     };
 
+    // Call the onSearch function from Userpage when search button is clicked
     const handleSearch = () => {
         if (onSearch) {
             onSearch(query);
@@ -22,7 +24,9 @@ function SearchBar({ onSearch }) {
                 placeholder="Search..."
                 className="w-full p-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            
+            <button onClick={handleSearch} className="p-2 bg-blue-500 text-white rounded">
+                Search
+            </button>
         </div>
     );
 }
